@@ -25,11 +25,11 @@
 
   
 
-npm install --global yarn
+		npm install --global yarn
 
 - Após isso você pode verificar se a instalação funcionou, executando
 
-yarn --version
+		yarn --version
 
   
 
@@ -40,6 +40,7 @@ Obs: um erro comum na instalação dessas ferramentas <strong>no Windows</strong
 <p>Após isso, clone esse projeto para algum local dentro da pasta do seu servidor local, já que os arquivos PHP se encontram já dentro da pasta "backend"</p>
 
 <p>E então, basta instalar as dependências do projeto utilizando o Yarn da seguinte maneira: </p>
+
 	yarn install
 
 <p>Finalizadas as questões do seu front-end, basta agora apenas importar o arquivo .sql presente dentro da pasta "backend" para o seu MySQL</p>
@@ -48,7 +49,7 @@ Obs: um erro comum na instalação dessas ferramentas <strong>no Windows</strong
 
   
 
-yarn start
+		yarn start
 
   
 
