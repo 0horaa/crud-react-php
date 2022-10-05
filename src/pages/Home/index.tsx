@@ -62,7 +62,7 @@ export function Home() {
             const data = await response.json()
 
             setData(data.records)
-            setThereIsLoading(false);
+            setIsLoading(false);
         } catch(error) {
             setData([]);
         }
