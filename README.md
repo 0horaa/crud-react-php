@@ -12,7 +12,7 @@
 
 - [x] CRUD de produtos com PHP.
 
-- [ ]  Indicadores de loading para as requisições assíncronas.
+- [X]  Indicadores de loading para algumas requisições assíncronas.
 
 
 <h2  align="center">Teste a aplicação instalando-a na sua máquina</h2>
