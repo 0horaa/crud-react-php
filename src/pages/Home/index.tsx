@@ -53,13 +53,14 @@ export function Home() {
     }
 
     async function getProducts() {
-        fetch(`${BASE_URL}/index.php`)
-            .then(response => response.json())
-            .then(responseToJSON => (
-                setData(responseToJSON.records)
-            )).catch(() => {
-                setData([]);
-            })
+        try {
+            const response = await fetch(`${BASE_URL}/index.php`)
+            const data = await response.json()
+
+            setData(data.records)
+        } catch(error) {
+            setData([]);
+        }
     }
 
     useEffect(() => {
@@ -67,27 +68,28 @@ export function Home() {
     }, []);
 
     async function deleteProduct(id: number) {
-        await fetch(`${BASE_URL}/delete.php?id=${id}`)
-        .then(response => response.json())
-        .then(responseToJSON => {
-            if(responseToJSON.error) {
+        try {
+            const response = await fetch(`${BASE_URL}/delete.php?id=${id}`)
+            const data = await response.json()
+
+            if(data.error) {
                 setStatus({
                     type: "error",
-                    message: responseToJSON.message
+                    message: data.message
                 });
             } else {
                 setStatus({
                     type: "success",
-                    message: responseToJSON.message
+                    message: data.message
                 });
                 getProducts();
             }
-        }).catch(() => {
+        } catch (error) {
             setStatus({
                 type: "error",
                 message: "Não foi possível se conectar ao servidor. Por favor, tente novamente mais tarde."
             });
-        });
+        }        
     }
 
     function handleNavigateToRegister() {

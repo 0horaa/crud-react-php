@@ -43,44 +43,45 @@ export function Update() {
 
     useEffect(() => {
         async function getProduct() {
-            await fetch(`${BASE_URL}/read.php?id=${id}`)
-            .then(response => response.json())
-            .then(responseToJSON => {
-                setProduct(responseToJSON.product);
-            });
-        }
+            const response = await fetch(`${BASE_URL}/read.php?id=${id}`)
+            const data = await response.json();
 
+            setProduct(data.product);
+        }
         getProduct();
     }, [id])
 
     async function updateProducts(event: FormEvent) {
         event.preventDefault();
-    
-        await fetch(`${BASE_URL}/update.php`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8'
-            },
-            body: JSON.stringify({product})
-        }).then(response => response.json()).then(responseToJSON => {
-            console.log(responseToJSON);
-            if(responseToJSON.error) {
+
+        try {
+            const response = await fetch(`${BASE_URL}/update.php`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                },
+                body: JSON.stringify({product})
+            })
+            const data = await response.json();
+            
+            console.log(data);
+            if(data.error) {
                 setStatus({
                     type: "error",
-                    message: responseToJSON.message
+                    message: data.message
                 });
             } else {
                 setStatus({
                     type: "success",
-                    message: responseToJSON.message
+                    message: data.message
                 });
             }
-        }).catch(() => {
+        } catch (error) {
             setStatus({
                 type: "error",
                 message: "Não foi possível se conectar ao servidor. Por favor, tente novamente mais tarde."
             });
-        })
+        }
     }
 
     function handleNavigateToHome() {

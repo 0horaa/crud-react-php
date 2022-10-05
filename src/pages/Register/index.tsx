@@ -37,30 +37,33 @@ export function Register() {
     async function registerProducts(event: FormEvent) {
         event.preventDefault();
 
-        await fetch(`${BASE_URL}/register.php`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: JSON.stringify({product})
-        }).then(response => response.json()).then(responseToJSON => {
-            if(responseToJSON.error) {
+        try {
+            const response = await fetch(`${BASE_URL}/register.php`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                },
+                body: JSON.stringify({product})
+            })
+            const data = await response.json();
+            
+            if(data.error) {
                 setStatus({
                     type: "error",
-                    message: responseToJSON.message //obtem a mensagem do response
+                    message: data.message //obtem a mensagem do response
                 });
             } else {
                 setStatus({
                     type: "success",
-                    message: responseToJSON.message
+                    message: data.message
                 });
             }
-        }).catch(() => {
+        } catch (error) {
             setStatus({
                 type: "error",
                 message: "Não foi possível se conectar ao servidor. Por favor, tente novamente mais tarde."
             });
-        });
+        }
     }
 
     function handleNavigateToHome() {
