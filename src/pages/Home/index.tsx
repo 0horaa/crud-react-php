@@ -140,7 +140,7 @@ export function Home() {
             {status.type === "error" && <AlertDanger>{status.message}</AlertDanger>}
             {status.type === "success" && <AlertSuccess>{status.message}</AlertSuccess>}
 
-            {thereIsLoading
+            {isLoading
                 ? <Loader />
 
                 : <Table>
