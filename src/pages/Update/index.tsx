@@ -63,7 +63,6 @@ export function Update() {
             },
             body: JSON.stringify({product})
         }).then(response => response.json()).then(responseToJSON => {
-            console.log(responseToJSON);
             if(responseToJSON.error) {
                 setStatus({
                     type: "error",
