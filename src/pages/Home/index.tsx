@@ -42,6 +42,7 @@ export function Home() {
     const [status, setStatus] = useState<StatusProps>({} as StatusProps);
     const [productId, setProductId] = useState(0);
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [thereIsLoading, setThereIsLoading] = useState(false);
     Modal.setAppElement("#root");
 
     function openModal() {
@@ -54,10 +55,13 @@ export function Home() {
 
     async function getProducts() {
         try {
+            setThereIsLoading(true);
+
             const response = await fetch(`${BASE_URL}/index.php`)
             const data = await response.json()
 
             setData(data.records)
+            setThereIsLoading(false);
         } catch(error) {
             setData([]);
         }
@@ -134,42 +138,50 @@ export function Home() {
             </HeaderContent>
             {status.type === "error" && <AlertDanger>{status.message}</AlertDanger>}
             {status.type === "success" && <AlertSuccess>{status.message}</AlertSuccess>}
-            <Table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Título</th>
-                        <th>Descrição</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {Object.values(data).map(product => (
-                        <tr key={product.id}>
-                            <td>{product.id}</td>
-                            <td>{product.title}</td>
-                            <td>{product.description}</td>
-                            <td className="icons-wrapper">
-                                <Link to={`/read/${product.id}`} title="Visualizar" >
-                                    <span><FiEye className="view-icon" /></span>
-                                </Link>
-                                <Link to={`/update/${product.id}`} title="Editar">
-                                    <span><FiEdit className="edit-icon" /></span>
-                                </Link>
-                                <span 
-                                    onClick={() => {
-                                        setProductId(product.id);
-                                        openModal();
-                                    }} 
-                                    title="Deletar"
-                                >
-                                    <FiTrash2 className="delete-icon" />
-                                </span>
-                            </td>
+
+            {thereIsLoading
+                ? <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+
+                : <Table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Título</th>
+                            <th>Descrição</th>
+                            <th>Ações</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {Object.values(data).map(product => (
+                            <tr key={product.id}>
+                                <td>{product.id}</td>
+                                <td>{product.title}</td>
+                                <td>{product.description}</td>
+                                <td className="icons-wrapper">
+                                    <Link to={`/read/${product.id}`} title="Visualizar" >
+                                        <span><FiEye className="view-icon" /></span>
+                                    </Link>
+                                    <Link to={`/update/${product.id}`} title="Editar">
+                                        <span><FiEdit className="edit-icon" /></span>
+                                    </Link>
+                                    <span 
+                                        onClick={() => {
+                                            setProductId(product.id);
+                                            openModal();
+                                        }} 
+                                        title="Deletar"
+                                    >
+                                        <FiTrash2 className="delete-icon" />
+                                    </span>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            }
+            
         </Container>
     );
 }
