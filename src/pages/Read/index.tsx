@@ -26,13 +26,10 @@ export function Read() {
 
     useEffect(() => {
         async function getProduct() {
-            await fetch(`${BASE_URL}/read.php?id=${id}`)
-            .then(response => response.json())
-            .then(responseToJSON => {
-                setData(responseToJSON.product);
-            });
+            const response = await fetch(`${BASE_URL}/read.php?id=${id}`)
+            const data = await response.json();
+            setData(data.product);
         }
-
         getProduct();
     }, [id]);
 
