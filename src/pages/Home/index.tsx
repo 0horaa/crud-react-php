@@ -19,7 +19,8 @@ import {
     ButtonsModal,
     CancelButton,
     ConfirmButton, 
-    customStyles 
+    customStyles,
+    Loader
 } from './styles'; 
 import '../../styles/icons.css';
 
@@ -140,9 +141,7 @@ export function Home() {
             {status.type === "success" && <AlertSuccess>{status.message}</AlertSuccess>}
 
             {thereIsLoading
-                ? <div className="spinner-border text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </div>
+                ? <Loader />
 
                 : <Table>
                     <thead>
