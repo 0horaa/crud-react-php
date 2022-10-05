@@ -15,7 +15,7 @@ try {
 
     $result->execute();
 
-    if($result->rowCount() > 0) {
+    if ($result->rowCount() > 0) {
         $response = [
             'error' => false,
             'message' => 'Produto apagado com sucesso!'
@@ -29,7 +29,7 @@ try {
 
     http_response_code(200);
     echo json_encode($response);
-} catch(PDOException $e) {
+} catch (PDOException $e) {
     echo json_encode($response = [
         'error' => true,
         'message' => 'Não foi possível apagar o produto :('
