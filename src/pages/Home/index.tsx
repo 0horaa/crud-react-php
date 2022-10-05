@@ -43,7 +43,7 @@ export function Home() {
     const [status, setStatus] = useState<StatusProps>({} as StatusProps);
     const [productId, setProductId] = useState(0);
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [thereIsLoading, setThereIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     Modal.setAppElement("#root");
 
     function openModal() {
