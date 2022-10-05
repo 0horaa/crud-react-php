@@ -56,7 +56,7 @@ export function Home() {
 
     async function getProducts() {
         try {
-            setThereIsLoading(true);
+            setIsLoading(true);
 
             const response = await fetch(`${BASE_URL}/index.php`)
             const data = await response.json()
