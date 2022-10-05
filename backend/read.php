@@ -15,7 +15,7 @@ try {
 
     $result->execute();
 
-    if($result->rowCount() > 0) {
+    if ($result->rowCount() > 0) {
         $product = $result->fetch(PDO::FETCH_ASSOC);
 
         $response = [
@@ -31,8 +31,7 @@ try {
 
     http_response_code(200);
     echo json_encode($response);
-
-} catch(PDOException $e) {
+} catch (PDOException $e) {
     echo json_encode($response = [
         'error' => true,
         'message' => 'Nenhum produto foi encontrado :('

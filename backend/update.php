@@ -9,8 +9,8 @@ include_once('connection.php');
 try {
     $response_json = file_get_contents('php://input');
     $data = json_decode($response_json, true);
-    
-    if($data) {
+
+    if ($data) {
         $update = 'UPDATE products SET title=:title, description=:description WHERE id=:id';
         $result = $connect->prepare($update);
 
@@ -20,7 +20,7 @@ try {
 
         $result->execute();
 
-        if($result->rowCount() > 0) {
+        if ($result->rowCount() > 0) {
             $response = [
                 'error' => false,
                 'message' => 'Produto atualizado com sucesso!',
@@ -32,8 +32,6 @@ try {
                 'message' => 'Não foi possível atualizar o produto :('
             ];
         }
-
-        
     } else {
         $response = [
             'error' => true,
@@ -43,7 +41,7 @@ try {
 
     http_response_code(200);
     echo json_encode($response);
-} catch(PDOException $e) {
+} catch (PDOException $e) {
     echo json_encode($response = [
         'error' => true,
         'message' => 'Não foi possível atualizar o produto :('

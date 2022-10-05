@@ -63,8 +63,7 @@ export function Update() {
                 body: JSON.stringify({product})
             })
             const data = await response.json();
-            
-            console.log(data);
+
             if(data.error) {
                 setStatus({
                     type: "error",
